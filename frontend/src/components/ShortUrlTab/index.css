@@ -1,0 +1,49 @@
+.heading{
+    color: black;
+    font-size: 20px;
+}
+.input{
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid black;
+    font-size: 15px;
+    width: 60%;
+}
+.sub-heading{
+    color: black;
+    font-size: 14px;
+}
+.urlContainer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+.tab-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70%;
+}
+.form{
+    display: flex;
+    align-items: center;
+}
+.form-btn{
+    background-color: black;
+    color: aliceblue;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 14px;
+    outline:none;
+    width: 180px;
+    margin-left: 25px;
+    cursor:pointer;
+}
+.cpyBtn{
+    padding: 10px;
+    background-color: black;
+    border-radius: 10px;
+    outline:none;
+    color: #ffffff;
+}

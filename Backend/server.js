@@ -145,7 +145,7 @@ app.get('/:short_code', async (req, res) => {
     const uniqueVisitCount = await db.get(query, [shortCodeId]);
 
     // Get device type counts
-    query = `SELECT device_type, COUNT(*) AS count FROM analytics WHERE short_code_id = ? GROUP BY device_type;`;
+    query = `SELECT device_type AS deviceTypes, COUNT(*) AS count FROM analytics WHERE short_code_id = ? GROUP BY device_type;`;
     const deviceTypeVisits = await db.all(query, [shortCodeId]);
 
     // Get average visits per hour
@@ -172,12 +172,12 @@ app.get('/:short_code', async (req, res) => {
 
     // Send the response
     res.json({
+      deviseTypeVisits: deviceTypeVisits,
       originalUrl: originalUrl,
       visitersCount: totalVisitCount.total, // Get count from object
       uniqueVisiters: uniqueVisitCount.uniqueCount, // Get unique count from object
-      avgVisitsPerDay: avgVisitsPerDay,
-      avgVisitsPerHour: avgVisitsPerHour,
-      deviseTypeVisits: deviceTypeVisits
+      avgVisitsPerDay: avgVisitsPerDay ?? 0,
+      avgVisitsPerHour: avgVisitsPerHour ?? 0
     });
   } catch (error) {
     console.error('Error fetching analytics:', error);
