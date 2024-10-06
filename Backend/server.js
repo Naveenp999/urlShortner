@@ -8,6 +8,8 @@ const PORT = 5000;
 const path = require('path');
 const userAgent = require('user-agent');
 
+dotenv.config();
+
 const filepath = path.join(__dirname,'database.db');
 
 // Middleware for parsing JSON
@@ -23,7 +25,7 @@ const connectdb = async() => {
       driver : sqlite3.Database
     });
     // Start the server
-    app.listen(PORT, () => {
+    app.listen(env.process.PORT, () => {
       console.log(`Server running at http://localhost:${PORT}`);
     });
   }

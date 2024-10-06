@@ -12,7 +12,7 @@ const AnalyticsTab = () => {
   const handleClick = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`http://localhost:5000/${code}`);
+      const response = await fetch(`/${code}`);
       if (!response.ok) {
         throw new Error('Failed to fetch data');
       }
