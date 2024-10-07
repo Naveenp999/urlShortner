@@ -4,11 +4,10 @@ const sqlite3 = require('sqlite3');
 const shortid = require('shortid');
 const cors = require('cors');
 const app = express();
-const PORT = 5000;
 const path = require('path');
 const userAgent = require('user-agent');
 
-dotenv.config();
+require('dotenv').config();
 
 const filepath = path.join(__dirname,'database.db');
 
@@ -25,8 +24,8 @@ const connectdb = async() => {
       driver : sqlite3.Database
     });
     // Start the server
-    app.listen(env.process.PORT, () => {
-      console.log(`Server running at http://localhost:${PORT}`);
+    app.listen(process.env.PORT, () => {
+      console.log(`Server running at ${process.env.URL_PORT}`);
     });
   }
   catch(error){
@@ -77,7 +76,7 @@ app.post('/shorten', async(req, res) => {
     return res.status(400).json({ error: 'URL is required' });
   }
 
-  if(original_url.includes(`localhost:${PORT}/r`)){
+  if(original_url.includes(`localhost:${process.env.PORT}/r`)){
     return res.status(400).json({error: 'Try Another Domain'})
   }
 
@@ -86,7 +85,7 @@ app.post('/shorten', async(req, res) => {
   try{
     const data = await db.get(`SELECT * FROM urls WHERE original_url = ?`,[original_url]);
     if(data){
-      return res.json({short_url : `http://localhost:${PORT}/r/${data.short_code}`});
+      return res.json({short_url : `${process.env.URL_PORT}/r/${data.short_code}`});
     }
     const arr = await db.all(`SELECT short_code FROM urls`);
     const short_code = generateRandomString(length,arr);
@@ -95,7 +94,7 @@ app.post('/shorten', async(req, res) => {
     const date = new Date();//present date
     const formtDate = `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`;//date formatting
     await db.run(query, [original_url, short_code,formtDate]);
-    res.json({ short_url: `http://localhost:${PORT}/r/${short_code}` })
+    res.json({ short_url: `${process.env.URL_PORT}/r/${short_code}` })
   }
   catch(error){
     return res.status(500).json({ error: 'Failed to shorten URL' });
