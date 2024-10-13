@@ -9,7 +9,7 @@ const ShortUrlTab = () => {
   
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch('https://urlshortner-luhp.onrender.com', {
+    const response = await fetch('https://urlshortner-luhp.onrender.com/shorten', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
